@@ -113,8 +113,14 @@
     inset: 0;
     z-index: 1;
     background:
-        linear-gradient(0deg, var(--graphite-black) 0%, rgba(21, 25, 31, 0.55) 35%, rgba(21, 25, 31, 0.05) 75%),
+        linear-gradient(0deg, var(--graphite-black) 0%, rgba(21, 25, 31, 0.82) 32%, rgba(21, 25, 31, 0.4) 58%, rgba(21, 25, 31, 0.05) 85%),
         linear-gradient(90deg, rgba(21, 25, 31, 0.6) 0%, rgba(21, 25, 31, 0) 55%);
+}
+/* no celular o texto ocupa quase toda a altura da foto: escurece por igual */
+@media (max-width: 991.98px) {
+    .hero__photo::before {
+        background: linear-gradient(0deg, var(--graphite-black) 0%, rgba(21, 25, 31, 0.88) 50%, rgba(21, 25, 31, 0.62) 100%);
+    }
 }
 .hero__photo img {
     object-position: 65% 35%;
@@ -203,6 +209,7 @@
 }
 
 /* ---------- galeria ---------- */
+.gallery-placeholder { min-height: 720px; } /* reserva o espaço enquanto o Swiper carrega (sem pulo de layout) */
 .gallery__item { position: relative; }
 .gallery__item .photo {
     aspect-ratio: 4 / 5;
@@ -273,6 +280,7 @@
 .contact-list a,
 .contact-list address { color: var(--arctic-white); text-decoration: none; }
 .contact-list a:hover { text-decoration: underline; }
+.contact-list a { display: inline-block; padding-block: 0.6rem; margin-block: -0.6rem; } /* alvo de toque maior sem mudar o visual */
 
 .hours { margin: 0; }
 .hours div {

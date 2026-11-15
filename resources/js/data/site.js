@@ -2,7 +2,7 @@
 // ILUSTRATIVO: nome, telefone, endereço, horários e redes são exemplos. Troque pelos dados reais.
 
 export const site = {
-    nome: 'Barbearia Exemplo',
+    nome: 'Grafite Barbearia',
     slogan: 'Corte no tempo certo, acabamento no detalhe.',
     descricao:
         'Cortes masculinos, barba e acabamento num espaço calmo, com atendimento sem pressa e conversa direta pelo WhatsApp.',
@@ -13,7 +13,7 @@ export const site = {
     },
 
     telefone: '(11) 90000-0000',
-    email: 'contato@barbearia-exemplo.com',
+    email: 'contato@grafitebarbearia.example',
 
     endereco: {
         rua: 'Rua Exemplo, 123',

@@ -50,7 +50,7 @@ export default function Contact() {
         <section id="contato" className="section section--raised" aria-labelledby="contato-titulo">
             <div className="container">
                 <SectionHeader id="contato-titulo" title="Contato">
-                    O jeito mais rápido é o WhatsApp. Se preferir, deixe uma mensagem que retornamos no mesmo dia.
+                    O jeito mais rápido é o WhatsApp. Se preferir, deixe uma mensagem e retornamos pelo telefone.
                 </SectionHeader>
 
                 <div className="row g-5">
@@ -107,7 +107,8 @@ export default function Contact() {
                             {hasErrors && (
                                 <div className="col-12">
                                     <div className="form-alert form-alert--erro" role="alert">
-                                        <PiWarningCircleLight size={22} aria-hidden="true" /> Mensagem não enviada. Corrija os campos marcados.
+                                        <PiWarningCircleLight size={22} aria-hidden="true" />{' '}
+                                        {errors.envio ?? 'Mensagem não enviada. Corrija os campos marcados.'}
                                     </div>
                                 </div>
                             )}

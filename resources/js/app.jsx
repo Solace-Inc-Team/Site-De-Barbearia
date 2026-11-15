@@ -2,9 +2,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/app.css';
 import { createInertiaApp } from '@inertiajs/react';
 import { createRoot } from 'react-dom/client';
+import { site } from './data/site';
 
 createInertiaApp({
-    title: (title) => (title ? `${title} | Barbearia Exemplo` : 'Barbearia Exemplo'),
+    title: (title) => (title ? `${title} | ${site.nome}` : site.nome),
     resolve: (name) => {
         const pages = import.meta.glob('./Pages/**/*.jsx', { eager: true });
         return pages[`./Pages/${name}.jsx`];

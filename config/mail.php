@@ -115,4 +115,8 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+
+    // Caixa que recebe as mensagens do formulário de contato do site
+    'contact_to' => env('CONTACT_TO', env('MAIL_FROM_ADDRESS')),
+
 ];
