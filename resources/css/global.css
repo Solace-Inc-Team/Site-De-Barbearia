@@ -1,21 +1,270 @@
-/* Arctic Graphite: tokens base (a identidade completa entra na Etapa 3) */
+/* ==========================================================
+   Arctic Graphite — sistema visual
+   Contraste (WCAG): Arctic White/Graphite 15.3 · Ice/Graphite 9.8
+   Ice/Slate 6.0 · Steel/Graphite 3.8 (só texto grande, linhas e foco)
+   Branco sobre Steel = 4.0, por isso o botão principal é Ice com texto grafite.
+   ========================================================== */
+
 :root {
     --graphite-black: #15191f;
     --slate-gray: #343e4a;
     --steel-blue: #657787;
     --ice-gray: #b5c3cb;
     --arctic-white: #eaf0f1;
+    --whatsapp: #25d366;
+    --whatsapp-hover: #3ee07a;
 
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'Manrope', system-ui, sans-serif;
+    --surface: rgba(52, 62, 74, 0.42);
+    --surface-strong: rgba(52, 62, 74, 0.72);
+    --line: rgba(181, 195, 203, 0.14);
+    --line-strong: rgba(181, 195, 203, 0.32);
+
+    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    /* escala tipográfica (razão ~1.25 no corpo, display livre) */
+    --fs-small: 0.875rem;
+    --fs-body: 1rem;
+    --fs-lead: 1.125rem;
+    --fs-h3: 1.5rem;
+    --fs-h2: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+    --fs-display: clamp(3.25rem, 1.8rem + 7vw, 7rem);
+
+    /* espaçamento */
+    --space-1: 0.5rem;
+    --space-2: 1rem;
+    --space-3: 1.5rem;
+    --space-4: 2.5rem;
+    --space-5: 4rem;
+    --space-section: clamp(5rem, 3rem + 8vw, 9rem);
+
+    --radius-sharp: 2px;
+    --radius-card: 6px;
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --header-h: 76px;
+}
+
+/* Bootstrap no tema escuro, puxando a paleta */
+[data-bs-theme='dark'] {
+    --bs-body-bg: var(--graphite-black);
+    --bs-body-color: var(--ice-gray);
+    --bs-emphasis-color: var(--arctic-white);
+    --bs-heading-color: var(--arctic-white);
+    --bs-secondary-color: var(--ice-gray);
+    --bs-border-color: var(--line);
+    --bs-link-color: var(--arctic-white);
+    --bs-link-color-rgb: 234, 240, 241;
+    --bs-link-hover-color: var(--ice-gray);
+    --bs-link-hover-color-rgb: 181, 195, 203;
+    --bs-body-font-family: var(--font-body);
+    --bs-focus-ring-color: rgba(181, 195, 203, 0.45);
+    --bs-form-invalid-color: #f0a3a3;
+    --bs-form-invalid-border-color: #f0a3a3;
+    --bs-form-valid-color: #9fd8b4;
+    --bs-form-valid-border-color: #9fd8b4;
+}
+
+/* ---------- base ---------- */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-h);
 }
 
 body {
     background: var(--graphite-black);
-    color: var(--arctic-white);
+    color: var(--ice-gray);
     font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-family: var(--font-display);
+    color: var(--arctic-white);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+h2 { font-size: var(--fs-h2); line-height: 1.05; }
+h3 { font-size: var(--fs-h3); line-height: 1.2; font-weight: 600; }
+
+p { max-width: 65ch; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+::selection { background: var(--steel-blue); color: var(--arctic-white); }
+
+:focus-visible {
+    outline: 2px solid var(--ice-gray);
+    outline-offset: 3px;
+    border-radius: var(--radius-sharp);
+}
+
+.skip-link {
+    position: absolute;
+    left: var(--space-2);
+    top: -100px;
+    z-index: 2000;
+    padding: var(--space-1) var(--space-2);
+    background: var(--ice-gray);
+    color: var(--graphite-black);
+    font-weight: 600;
+}
+.skip-link:focus { top: var(--space-2); }
+
+/* ---------- tipografia de destaque ---------- */
+.display {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: 500;
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    color: var(--arctic-white);
+}
+
+.lead-text {
+    font-size: var(--fs-lead);
+    line-height: 1.75;
+    color: var(--ice-gray);
+}
+
+.text-small { font-size: var(--fs-small); }
+.text-white-arctic { color: var(--arctic-white); }
+
+/* ---------- seções ---------- */
+.section {
+    padding-block: var(--space-section);
+}
+
+.section--raised {
+    background: linear-gradient(180deg, rgba(52, 62, 74, 0.28), rgba(52, 62, 74, 0) 70%);
+}
+
+/* cabeçalho de seção: título à esquerda, texto de apoio à direita no desktop */
+.section-header {
+    display: grid;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--line);
+}
+
+.section-header h2 { margin: 0; }
+.section-header p { margin: 0; }
+
+@media (min-width: 992px) {
+    .section-header {
+        grid-template-columns: 5fr 6fr;
+        align-items: end;
+        gap: var(--space-5);
+    }
+}
+
+/* fio de navalha: linha fina com reflexo frio, usada como assinatura */
+.blade-line {
+    height: 1px;
+    border: 0;
+    margin: 0;
+    opacity: 1;
+    background: linear-gradient(90deg, transparent, var(--steel-blue) 20%, var(--arctic-white) 50%, var(--steel-blue) 80%, transparent);
+}
+
+/* ---------- botões ---------- */
+.btn-ice,
+.btn-line,
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 48px;
+    padding: 0.75rem 1.6rem;
+    border-radius: var(--radius-sharp);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.btn-ice {
+    background: var(--ice-gray);
+    color: var(--graphite-black);
+}
+.btn-ice:hover { background: var(--arctic-white); color: var(--graphite-black); }
+
+.btn-line {
+    background: transparent;
+    color: var(--arctic-white);
+    border-color: var(--line-strong);
+}
+.btn-line:hover { border-color: var(--ice-gray); color: var(--arctic-white); background: rgba(181, 195, 203, 0.06); }
+
+.btn-whatsapp {
+    background: var(--whatsapp);
+    color: var(--graphite-black);
+}
+.btn-whatsapp:hover { background: var(--whatsapp-hover); color: var(--graphite-black); }
+
+.btn-ice:disabled,
+.btn-line:disabled,
+.btn-whatsapp:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ---------- cards ---------- */
+.card-arctic {
+    height: 100%;
+    padding: var(--space-4) var(--space-3);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    backdrop-filter: blur(6px);
+}
+
+.card-arctic h3 { margin-bottom: var(--space-1); }
+
+/* preço e dados em destaque dentro dos cards */
+.figure-price {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--arctic-white);
+}
+
+.meta {
+    font-size: var(--fs-small);
+    color: var(--ice-gray);
+}
+
+/* ---------- formulário ---------- */
+.form-control {
+    min-height: 48px;
+    background: var(--surface-strong);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sharp);
+    color: var(--arctic-white);
+}
+.form-control::placeholder { color: rgba(181, 195, 203, 0.6); }
+.form-control:focus {
+    background: var(--surface-strong);
+    border-color: var(--ice-gray);
+    color: var(--arctic-white);
+    box-shadow: 0 0 0 3px rgba(181, 195, 203, 0.2);
+}
+.form-label { color: var(--arctic-white); font-weight: 600; font-size: var(--fs-small); }
+
+/* ---------- movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
 }
