@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      # Só esta máquina acessa. Em produção, coloque um proxy com HTTPS na frente.
+      - "127.0.0.1:8080:80"
+    # APP_KEY e configurações de e-mail (MAIL_*, CONTACT_TO) vêm do seu .env
+    env_file: .env
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_URL: http://localhost:8080
+      LOG_CHANNEL: stderr
