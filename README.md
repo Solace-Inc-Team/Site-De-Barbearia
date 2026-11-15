@@ -1,58 +1,139 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Grafite Barbearia
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Site institucional (landing page) de uma barbearia fictícia, feito com **Laravel, React e Inertia.js**. Apresenta a barbearia, os serviços com preços, uma galeria de fotos, horários, localização e contato por WhatsApp e por formulário.
 
-## About Laravel
+> **Projeto de portfólio.** Nome, endereço, telefone, preços e textos são ilustrativos. As fotos são do [Unsplash](https://unsplash.com).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![Tela inicial da Grafite Barbearia](docs/screenshot.jpg)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Funcionalidades
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Página única** com as seções Início, Sobre, Serviços, Galeria e Contato, navegadas pelo menu (com menu próprio no celular).
+- **Serviços com preço e duração**, editados num arquivo de dados.
+- **Galeria em carrossel** (Swiper), que funciona com arraste, setas e teclado.
+- **WhatsApp**: botão flutuante e botões nas seções, com mensagem inicial pronta. O número fica num lugar só.
+- **Formulário de contato** enviado por e-mail pelo Laravel, **sem banco de dados**:
+  - validação no servidor, com mensagens em português perto de cada campo;
+  - telefone aceito com ou sem máscara;
+  - proteção contra spam: campo-armadilha e limite de 3 envios a cada 10 minutos por IP;
+  - autorização de uso dos dados (LGPD), e nada fica guardado no site.
+- **Mapa** do Google Maps, horários de funcionamento e redes sociais.
+- **SEO**: título, descrição, Open Graph (prévia ao compartilhar), favicon e HTML semântico.
+- **Acessibilidade**: contraste conferido pelo WCAG, foco visível, link "pular para o conteúdo", textos alternativos e respeito à opção de reduzir animações.
 
-## Learning Laravel
+## Tecnologias
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+| Camada | Ferramentas |
+| --- | --- |
+| Backend | Laravel 13 (PHP 8.3+): rotas, controller, validação e e-mail |
+| Integração | Inertia.js (sem API REST separada) |
+| Frontend | React 19, Bootstrap 5, CSS3, React Icons, Swiper, AOS, Google Fonts |
+| Build | Vite |
+| Testes | PHPUnit |
+| Execução | Docker (PHP 8.4 + Apache) ou servidor local do Laravel |
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Identidade visual: Arctic Graphite
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Uma paleta fria e minimalista, longe do preto com dourado das barbearias tradicionais.
 
-## Agentic Development
+| Cor | Hex | Uso |
+| --- | --- | --- |
+| Graphite Black | `#15191F` | fundo principal |
+| Slate Gray | `#343E4A` | cards e seções secundárias |
+| Steel Blue | `#657787` | linhas, ícones e foco |
+| Ice Gray | `#B5C3CB` | textos secundários e botão principal |
+| Arctic White | `#EAF0F1` | títulos e textos principais |
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Tipografia: **Cormorant Garamond** nos títulos e **Manrope** no texto.
+
+## Como rodar
+
+### Com Docker
+
+Precisa só do Docker.
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+cp .env.example .env
+docker compose run --rm app php artisan key:generate --show
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Copie a chave que aparecer para `APP_KEY=` no `.env` e suba o site:
 
-## Contributing
+```bash
+docker compose up -d --build
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+O site abre em http://localhost:8080. Depois de mudar o código, rode o mesmo comando de novo: o `--build` é o que leva o código novo para dentro do container.
 
-## Code of Conduct
+### Local
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Precisa de PHP 8.3+, Composer e Node.js 20.19+ (ou 22.12+).
 
-## Security Vulnerabilities
+```bash
+composer setup
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+O comando instala as dependências, cria o `.env`, gera a chave e compila o front. Depois, em dois terminais:
 
-## License
+```bash
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+npm run dev
+```
+
+O site abre em http://localhost:8000.
+
+### Testes
+
+```bash
+php artisan test
+```
+
+## Onde editar o conteúdo
+
+Os dados não estão espalhados pelos componentes:
+
+| O quê | Arquivo |
+| --- | --- |
+| Nome, slogan, WhatsApp, telefone, e-mail, endereço, mapa, horários e redes | `resources/js/data/site.js` |
+| Serviços, preços e durações | `resources/js/data/services.js` |
+| Fotos do Hero, do Sobre e da galeria (com texto alternativo) | `resources/js/data/gallery.js` |
+| Título e descrição para buscadores e compartilhamento | `resources/views/app.blade.php` |
+| Cores, tipografia e espaçamentos | `resources/css/global.css` |
+
+## E-mail do formulário
+
+Por padrão (`MAIL_MAILER=log`), as mensagens só são gravadas em `storage/logs/laravel.log`. Para enviar de verdade, configure o SMTP do seu provedor no `.env`:
+
+```dotenv
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.seuprovedor.com
+MAIL_PORT=587
+MAIL_USERNAME=usuario
+MAIL_PASSWORD=senha
+MAIL_FROM_ADDRESS="contato@seudominio.com.br"
+
+# Quem recebe as mensagens do formulário
+CONTACT_TO="dono@seudominio.com.br"
+```
+
+## Estrutura
+
+```
+app/
+  Http/Controllers/ContactController.php   validação, anti-spam e envio
+  Mail/ContatoRecebido.php                 e-mail em texto
+resources/
+  css/global.css                           identidade Arctic Graphite
+  css/app.css                              estilos das seções
+  js/Components/                           Header, Hero, About, Services, Gallery,
+                                           Contact, WhatsAppButton, Footer…
+  js/Layouts/MainLayout.jsx
+  js/Pages/Home.jsx
+  js/data/                                 conteúdo editável
+  views/app.blade.php                      HTML base, SEO e Open Graph
+routes/web.php                             GET / e POST /contato
+tests/Feature/ContactTest.php              testes do formulário
+```
